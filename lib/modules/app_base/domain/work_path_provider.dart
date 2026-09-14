@@ -5,15 +5,19 @@ import "package:path_provider/path_provider.dart";
 import "package:path/path.dart" as p;
 
 
-Future<String> getAppDataDirectoryPath([bool create = false]) async{
+Future<String> getAppDataDirectoryPath([bool create = true]) async{
   final Directory directory = await getApplicationDocumentsDirectory();
 
   final String appDataDirectoryPath = p.join(directory.path, "Nikki Albums");
 
   if(create){
     final Directory appDataDirectory = Directory(appDataDirectoryPath);
-    if(!await appDataDirectory.exists()){
-      appDataDirectory.create(recursive: true);
+    try{
+      if(!await appDataDirectory.exists()){
+        appDataDirectory.create(recursive: true);
+      }
+    }catch(_){
+
     }
   }
 
